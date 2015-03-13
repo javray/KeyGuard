@@ -21,7 +21,7 @@ public class KeyGuard extends CordovaPlugin {
     }
 
     @Override
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+    public void initialize(final CordovaInterface cordova, CordovaWebView webView) {
 
         super.initialize(cordova, webView);
 
