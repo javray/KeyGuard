@@ -34,9 +34,14 @@ public class KeyGuard extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
       if (action.equals("disable")) {
-        KeyguardManager km =(KeyguardManager)cordova.getActivity().getSystemService(cordova.getActivity().KEYGUARD_SERVICE);
-        k1 = km.newKeyguardLock("IN");
-        k1.disableKeyguard();
+
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+              KeyguardManager km =(KeyguardManager)cordova.getActivity().getSystemService(cordova.getActivity().KEYGUARD_SERVICE);
+              k1 = km.newKeyguardLock("IN");
+              k1.disableKeyguard();
+            };
+        });
       }
       else if (action.equals("enable")) {
       }
