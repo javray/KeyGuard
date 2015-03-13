@@ -25,9 +25,13 @@ public class KeyGuard extends CordovaPlugin {
 
         super.initialize(cordova, webView);
 
-        cordova.getActivity().getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-        cordova.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN|
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+              cordova.getActivity().getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+              cordova.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN|
+                      WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            };
+        });
     }
 
     @Override
