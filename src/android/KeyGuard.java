@@ -35,7 +35,6 @@ public class KeyGuard extends CordovaPlugin {
         k1.disableKeyguard();
       }
       else if (action.equals("enable")) {
-        k1.enableKeyguard();
       }
 
       return false;
