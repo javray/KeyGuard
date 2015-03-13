@@ -8,27 +8,34 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.view.WindowManager;
+import android.app.KeyguardManager;
 
 public class KeyGuard extends CordovaPlugin {
 
+    private KeyguardManager.KeyguardLock k1;
+
     public KeyGuard() {
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN|
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
       if (action.equals("disable")) {
-        cordova.getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-               cordova.getActivity().getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-               cordova.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN|
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-            };
-        });
+        KeyguardManager km =(KeyguardManager)getSystemService(KEYGUARD_SERVICE);
+        k1 = km.newKeyguardLock("IN");
+        k1.disableKeyguard();
       }
       else if (action.equals("enable")) {
-        cordova.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        cordova.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        k1.enableKeyguard();
       }
 
       return false;
