@@ -19,13 +19,13 @@ public class KeyGuard extends CordovaPlugin {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+
+        super.initialize(cordova, webView);
 
         cordova.getActivity().getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
         cordova.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN|
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-
-        super.onCreate(savedInstanceState);
     }
 
     @Override
