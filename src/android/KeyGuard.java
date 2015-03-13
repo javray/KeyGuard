@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.view.WindowManager;
 import android.app.KeyguardManager;
+import android.os.Bundle;
 
 public class KeyGuard extends CordovaPlugin {
 
@@ -20,9 +21,10 @@ public class KeyGuard extends CordovaPlugin {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN|
+        cordova.getActivity().getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+        cordova.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN|
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+
         super.onCreate(savedInstanceState);
     }
 
